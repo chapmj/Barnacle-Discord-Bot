@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group 'org.personal'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "com.discord4j:discord4j-core:3.1.0"
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+}
