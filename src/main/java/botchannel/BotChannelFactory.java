@@ -4,7 +4,7 @@ import discord4j.core.object.entity.channel.GuildChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
-import rules.NullRule;
+import rules.RuleBasic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class BotChannelFactory {
     {
         var opt= BotChannelMgr.find(guildChannel.getId());
         var botChannel = opt.orElse(BotChannelMgr.add(new BotChannel(guildChannel)));
-        botChannel.rule = new NullRule();
+        botChannel.rule = new RuleBasic();
 
         return botChannel;
     }

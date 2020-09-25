@@ -6,10 +6,10 @@ import rules.ruleaction.AbstractRuleAction;
 public class AbstractRuleDecorator extends AbstractRule
 {
 
-    protected final AbstractRule rule;
+    protected final IRule rule;
     protected final AbstractRuleAction action;
 
-    protected AbstractRuleDecorator(AbstractRule rule, AbstractRuleAction action, String ruleDescription)
+    protected AbstractRuleDecorator(IRule rule, AbstractRuleAction action, String ruleDescription)
     {
        super(ruleDescription);
        this.rule = rule;

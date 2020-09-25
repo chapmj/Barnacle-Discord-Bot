@@ -6,12 +6,13 @@ import discord4j.core.object.entity.channel.TextChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rules.AbstractRule;
+import rules.IRule;
 
 /*** Interface to a Discord4j channel
  ***/
 public final class BotChannel extends AbstractBotChannel {
    private final GuildChannel guildChannel;
-   public AbstractRule rule;
+   public IRule rule;
 
    private static final Logger lg = LoggerFactory.getLogger("BotChannel");
 
@@ -43,7 +44,7 @@ public final class BotChannel extends AbstractBotChannel {
        switch (guildChannel.getType())
        {
           case GUILD_TEXT:
-             ((TextChannel)guildChannel).createMessage(string).block();
+             ((TextChannel)guildChannel).createMessage(string).block(); // TODO: send message only once
              lg.debug(String.format("Sending message to remote channel: [%s]", guildChannel.getName()));
              break;
 
@@ -54,6 +55,6 @@ public final class BotChannel extends AbstractBotChannel {
    @Override
    public void triggerRule(Message message)
    {
-      rule.evaluateMessage(message);
+      rule.evaluateMessage(message);  //send self for double dispatch?
    }
 }

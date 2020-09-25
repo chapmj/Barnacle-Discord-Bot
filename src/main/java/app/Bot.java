@@ -7,9 +7,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import event.EventMgr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rules.AbstractRule;
-import rules.RuleBasic;
-import rules.RuleBlockPhraseAndRespond;
+import rules.RuleFactory;
 import rules.ruleaction.AbstractRuleAction;
 import rules.ruleaction.RuleActionBasic;
 import rules.ruleaction.RuleActionWithChannelMessage;
@@ -34,22 +32,19 @@ public class Bot
         AbstractRuleAction action = new RuleActionBasic();
         action = new RuleActionWithChannelMessage(action, response, String.format("Send: [%s]",response));
 
-        AbstractRule rule = new RuleBasic();
-        rule = new RuleBlockPhraseAndRespond(rule, action, "Block: ", "Zapp Brannigan");
+        var ruleFactory = new RuleFactory(action);
 
         var optBotChannel = BotChannelMgr.find(Snowflake.of(753316790754476133L));
 
         if (optBotChannel.isPresent())
         {
             var botChannel = optBotChannel.get();
-            botChannel.rule = rule;
+            botChannel.rule = ruleFactory.create("Zapp Brannigan");
+            botChannel.rule = ruleFactory.create("Bender");
+            botChannel.rule = ruleFactory.create("Zoidberg");
         }
 
-        //add channel permissions as parameter
-        gateway.subscribeTo(MessageCreateEvent.class, EventMgr::accept);
-
-        EventMgr.processEvents(10000);
-
+        gateway.subscribeTo(MessageCreateEvent.class, EventMgr::parseEvent);
         gateway.disconnect();
 
     }

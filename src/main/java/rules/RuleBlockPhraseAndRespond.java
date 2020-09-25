@@ -8,7 +8,7 @@ public final class RuleBlockPhraseAndRespond extends AbstractRuleDecorator
 {
     private final String blockedPhrase;
 
-    public RuleBlockPhraseAndRespond(AbstractRule rule, AbstractRuleAction action, String ruleDescription, String blockedPhrase)
+    public RuleBlockPhraseAndRespond(IRule rule, AbstractRuleAction action, String ruleDescription, String blockedPhrase)
     {
         super(rule, action, ruleDescription);
         this.blockedPhrase = blockedPhrase;
