@@ -21,7 +21,7 @@ public class Bot
         lg.debug("HELLO");
         //read token from file or args
         String temptoken = "";//hidden on github
-        final var token = args.length > 1 ? args[1] : temptoken;
+        final var token = args.length > 0 ? args[0] : temptoken;
         final var client = new BotClient(token);
         final var gateway = client.login();
 
